@@ -1,0 +1,15 @@
+# top-most EditorConfig file
+root = true
+
+# 2 space indentation https://google.github.io/styleguide/jsguide.html
+[*.js]
+indent_style = space
+indent_size = 2
+
+[*.html]
+indent_style = space
+indent_size = 2
+
+[*.css]
+indent_style = space
+indent_size = 2
