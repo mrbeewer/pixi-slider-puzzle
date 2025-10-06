@@ -1,8 +1,7 @@
 import { Application, Assets } from "pixi.js";
 import "@pixi/layout";
-import { colors } from "./config/colors";
 import { manifest } from "./config/manifest";
-import { MainScreen } from "./screens/main/MainScreen";
+// import { MainScreen } from "./screens/MainScreen";
 import { LoadScreen } from "./screens/LoadScreen";
 
 // This structure is heavily based on
@@ -21,37 +20,15 @@ export let loadedAssets = {
 
 // Globals
 let loadingScreen: LoadScreen;
-let mainScreen: MainScreen;
+// let mainScreen: MainScreen;
 
-// Resizing function for the app
-function resize() {
-  const windowWidth = window.innerWidth;
-  const windowHeight = window.innerHeight;
-
-  app.renderer.canvas.style.width = `${windowWidth}px`;
-  app.renderer.canvas.style.height = `${windowHeight}px`;
-  window.scrollTo(0, 0);
-
-  // Resize the renderer and keep stage hitArea in sync
-  app.renderer.resize(windowWidth, windowHeight);
-  app.stage.hitArea = app.screen;
-
-  // Notify screens so their LayoutContainers can recalculate sizes
-  if (loadingScreen) loadingScreen.resize(windowWidth, windowHeight);
-  if (mainScreen) mainScreen.resize(windowWidth, windowHeight);
-}
 
 async function init() {
   // Initialize
   await app.init({
     // resolution: Math.max(window.devicePixelRatio, 2),
     resizeTo: window,
-    layout: {
-      autoUpdate: true,
-      enableDebug: false,
-      throttle: 100
-    },
-    backgroundColor: colors.bg,
+    backgroundColor: "black",
   });
 
   app.stage.eventMode = "static";
@@ -80,15 +57,9 @@ async function init() {
   // Initialize variables
   type BundleWeights = Record<string, number>;
   type BundleProgress = Record<string, number>;
-  const bundles: string[] = ['controls', 'leftTop', 'leftMiddle', 'leftBottom', 'rightTop', 'rightMiddle', 'rightBottom'];
+  const bundles: string[] = ['controls'];
   const bundleWeights: BundleWeights = {
     controls: 1,
-    leftTop: 1,
-    leftMiddle: 1,
-    leftBottom: 1,
-    rightTop: 1,
-    rightMiddle: 1,
-    rightBottom: 1,
   };
   const bundleProgress: BundleProgress = {};
   const totalWeight: number = Object.values(bundleWeights).reduce((a, b) => a + b, 0);
@@ -119,15 +90,33 @@ async function init() {
   // Swap the containers
 
   // Load in main screen
-  mainScreen = new MainScreen();
+  // mainScreen = new MainScreen();
 
   // Put the main screen before the loading screen (children are rendered in order)
-  await app.stage.addChildAt(mainScreen, 0);
+  // await app.stage.addChildAt(mainScreen, 0);
 
   // Hide the loading screen with a delay
   setTimeout(() => {
     // loadingScreen.hide();
   }, 1000);
+}
+
+// Resizing function for the app
+function resize() {
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+
+  app.renderer.canvas.style.width = `${windowWidth}px`;
+  app.renderer.canvas.style.height = `${windowHeight}px`;
+  window.scrollTo(0, 0);
+
+  // Resize the renderer and keep stage hitArea in sync
+  app.renderer.resize(windowWidth, windowHeight);
+  app.stage.hitArea = app.screen;
+
+  // Notify screens so their LayoutContainers can recalculate sizes
+  if (loadingScreen) loadingScreen.resize(windowWidth, windowHeight);
+  // if (mainScreen) mainScreen.resize(windowWidth, windowHeight);
 }
 
 window.onload = init;
