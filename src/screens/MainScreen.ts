@@ -1,7 +1,9 @@
 import { LayoutContainer } from "@pixi/layout/components";
-import { Assets, Container, Sprite } from "pixi.js";
+import { Assets, Container } from "pixi.js";
 import { app } from "../main";
 import { Controls } from "../components/Controls";
+import { Tile } from "../components/Tile";
+import { TileGrid } from "../components/TileGrid";
 
 export class MainScreen extends Container {
 
@@ -34,16 +36,22 @@ export class MainScreen extends Container {
 
     public async prepare() {
 
-        const texture = Assets.get("bunny");
-        const toy = new Sprite({
-            texture: texture,
-            anchor: 0.5,
-            scale: 6,
-            alpha: 1,
-        });
+        // const texture = Assets.get("bunny");
+        // const toy = new Sprite({
+        //     texture: texture,
+        //     anchor: 0.5,
+        //     scale: 6,
+        //     alpha: 1,
+        // });
 
-        toy.x = app.screen.width / 2;
-        toy.y = app.screen.height / 2;
+        // toy.x = app.screen.width / 2;
+        // toy.y = app.screen.height / 2;
+
+        const tileGrid = new TileGrid();
+        this.mainContainer.addChild(tileGrid);
+
+        const toy = new Tile(Assets.get("bunny")!, this.mainContainer, tileGrid);
+
         this.mainContainer.addChild(toy);
 
         this.controls = new Controls(toy);
@@ -71,6 +79,5 @@ export class MainScreen extends Container {
         if (this.controls) {
             this.controls.resize(width, height);
         }
-
     }
 }
