@@ -50,13 +50,15 @@ export class MainScreen extends Container {
         const tileGrid = new TileGrid();
         this.mainContainer.addChild(tileGrid);
 
-        const toy = new Tile(Assets.get("bunny")!, this.mainContainer, tileGrid);
+        // const toy = new Tile(Assets.get("bunny")!, this.mainContainer, tileGrid);
+        // toy.position.set(0, 75);
 
-        this.mainContainer.addChild(toy);
 
-        this.controls = new Controls(toy);
+        // this.mainContainer.addChild(toy);
 
-        this.mainContainer.addChild(this.controls);
+        // this.controls = new Controls(toy);
+
+        // this.mainContainer.addChild(this.controls);
     }
 
     public resize(width: number, height: number) {

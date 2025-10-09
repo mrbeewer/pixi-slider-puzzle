@@ -19,7 +19,7 @@ export class Tile extends Sprite {
 
     constructor(tileTexture: Texture, parentContainer: Container, tileGrid?: TileGrid) {
         const texture = tileTexture;
-        super({ texture, layout: true });
+        super({ texture, layout: false });
 
         this.toyTexture = texture;
         this.parentContainer = parentContainer;
@@ -40,12 +40,12 @@ export class Tile extends Sprite {
         this.zIndex = 50;
 
         // Keeps the sprite from being offset due to the layout container
-        this.layout = {
-            position: 'absolute',
-        }
+        // this.layout = {
+        //     position: 'absolute',
+        // }
 
         // Move the sprite to the center of the container
-        this.position.set(this.parentContainer.width / 2 - this.width / 2, this.parentContainer.height / 2 - this.height / 2);
+        // this.position.set(this.parentContainer.width / 2 - this.width / 2, this.parentContainer.height / 2 - this.height / 2);
 
         // Make the sprite interactive (drag)
         this.eventMode = "static";
